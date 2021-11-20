@@ -1,18 +1,22 @@
-version: "3"
+version: "3.4"
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      network: host
+#    image: misskey/misskey:12.89.1
     restart: always
     links:
       - db
       - redis
 #      - es
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:3003:3003"
     networks:
       - internal_network
       - external_network
+#    network_mode: "host" 
     volumes:
       - ./files:/misskey/files
       - ./.config:/misskey/.config:ro
